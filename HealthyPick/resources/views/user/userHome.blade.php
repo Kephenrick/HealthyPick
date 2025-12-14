@@ -2,12 +2,21 @@
 
 @section('title', 'HealthyPick')
 @section('content')
-    <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">HealthyPick</h1>
+        <p class="text-muted">desc placeholder</p>
+        <a href="{{ route('user.userProduct') }}" class="btn btn-primary btn-lg">Order Now</a>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-md-4">
+            <h5>Menu description</h5>
+        </div>
+        <div class="col-md-4">
+            <h5>Fast Delivery</h5>
+        </div>
+        <div class="col-md-4">
+            <h5>easy payment yadi yada</h5>
         </div>
     </div>
 @endsection

@@ -14,18 +14,18 @@ Route::get('/', function () {
 });
 
 Route::prefix('/user')->controller(UserController::class)->name('user.')->group(function () {
-    Route::get('/home', 'home')->name('userHome');
+    Route::get('/', 'home')->name('userHome');
     Route::get('/product', 'product')->name('userProduct');
-    Route::get('/vendors', 'vendor')->name('userVendor');
+    Route::get('/vendor', 'vendor')->name('userVendor');
     Route::get('/payment', 'payment')->name('userPayment');
     Route::get('/transaction', 'transaction')->name('userTransaction');
     Route::get('/aboutus', 'about')->name('userAbout');
 });
 
 Route::prefix('/vendor')->controller(VendorController::class)->name('vendor.')->group(function () {
-    Route::get('/home', 'home')->name('vendorHome');
+    Route::get('/', 'home')->name('vendorHome');
     Route::get('/product', 'product')->name('vendorProduct');
-    Route::get('/transaction', 'payment')->name('vendorTransaction');
+    Route::get('/transaction', 'transaction')->name('vendorTransaction');
 });
 
 Route::prefix('/user/auth')->controller(AuthController::class)->name('auth.')->group(function () {

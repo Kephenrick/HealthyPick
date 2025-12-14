@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>@yield('title', 'HealthyPick')</title>
 </head>
@@ -12,9 +13,11 @@
             <a href="/" class="navbar-brand">HealthyPick</a>
             <div>
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a href="/" class="nav-link">Products</a></li>
-                    <li class="nav-item"><a href="/" class="nav-link">History</a></li>
-                    <li class="nav-item"><a href="/" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a href="{{ route('user.userProduct') }}" class="nav-link">Products</a></li>
+                    <li class="nav-item"><a href="{{ route('user.userVendor') }}" class="nav-link">Vendors</a></li>
+                    <li class="nav-item"><a href="{{ route('user.userTransaction') }}" class="nav-link">History</a></li>
+                    <li class="nav-item"><a href="{{ route('user.userAbout') }}" class="nav-link">About Us</a></li>
+                    <li class="nav-item"><a href="{{ route('auth.login') }}" class="nav-link">Login</a></li>
                 </ul>
             </div>
         </div>
