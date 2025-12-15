@@ -6,7 +6,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header bg-secondary text-white">
                         <h3 class="mb-0">Daftar Akun Baru</h3>
                     </div>
                     <div class="card-body">
@@ -109,7 +109,7 @@
                                 @enderror
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100">Daftar</button>
+                            <button type="submit" class="btn btn-secondary w-100">Daftar</button>
                         </form>
 
                         <hr>

@@ -5,7 +5,7 @@
     <div class="text-center mb-5">
         <h1 class="fw-bold">HealthyPick</h1>
         <p class="text-muted">desc placeholder</p>
-        <a href="{{ route('user.userProduct') }}" class="btn btn-primary btn-lg">Order Now</a>
+        <a href="{{ route('user.userProduct') }}" class="btn btn-secondary btn-lg">Order Now</a>
     </div>
 
     <div class="row text-center">

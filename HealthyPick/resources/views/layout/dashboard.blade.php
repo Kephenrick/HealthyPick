@@ -8,52 +8,36 @@
     <title>@yield('title', 'Dashboard')</title>
 </head>
 <body>
-    {{-- no idea, will just leave it like this for now --}}
-    <nav class="navbar bg-body-tertiary fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Offcanvas navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex mt-3" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+    <div class="d-flex">
+        <aside class="bg-dark text-white p-3" style="width: 260px; min-height: 100vh">
+            <h4 class="mb-4">Panel</h4>
+            <ul class="nav flex-column gap-1">
+                <li class="nav-item">
+                    <a href="{{ route('vendor.vendorHome') }}" class="nav-link text-white">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('vendor.vendorProduct') }}" class="nav-link text-white">Product</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('vendor.vendorTransaction') }}" class="nav-link text-white">Transaction</a>
+                </li>
+                <li class="nav-item mt-3">
+                    <form method="POST" action="">
+                        @csrf
+                        <button class="btn btn-outline-danger w-100">Logout</button>
                     </form>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container my-4">
-        @yield('content')
+                </li>
+            </ul>
+        </aside>
     </div>
+
+    <main class="flex-fill p-4">
+        <div class="mb-4">
+            @yield('title-page')
+        </div>
+
+        @yield('content')
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
