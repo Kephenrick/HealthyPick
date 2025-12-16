@@ -35,10 +35,10 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
         ], [
-            'email.required' => 'Email harus diisi',
-            'email.email' => 'Format email tidak valid',
-            'password.required' => 'Password harus diisi',
-            'password.min' => 'Password minimal 6 karakter',
+            'email.required' => 'Email needs to be filled',
+            'email.email' => 'Invalid email format',
+            'password.required' => 'Password needs to be filled',
+            'password.min' => 'Password minimum 6 characters',
         ]);
 
         if ($validator->fails()) {
@@ -55,12 +55,12 @@ class AuthController extends Controller
 
             return redirect()
                 ->route('dashboard')
-                ->with('success', 'Login berhasil! Selamat datang ' . Auth::user()->name);
+                ->with('success', 'Login Successful! Welcome ' . Auth::user()->name);
         }
 
         return redirect()
             ->route('login')
-            ->withErrors(['login_error' => 'Email atau password salah'])
+            ->withErrors(['login_error' => 'Email or password is wrong'])
             ->withInput($request->only('email'));
     }
 
@@ -75,19 +75,19 @@ class AuthController extends Controller
             'phone_number' => 'required|string|min:10|max:15|unique:users,phone_number',
             'password' => 'required|min:6|confirmed',
         ], [
-            'name.required' => 'Nama harus diisi',
-            'name.min' => 'Nama minimal 3 karakter',
-            'name.max' => 'Nama maksimal 255 karakter',
-            'email.required' => 'Email harus diisi',
-            'email.email' => 'Format email tidak valid',
-            'email.unique' => 'Email sudah terdaftar',
-            'phone_number.required' => 'Nomor telepon harus diisi',
-            'phone_number.min' => 'Nomor telepon minimal 10 digit',
-            'phone_number.max' => 'Nomor telepon maksimal 15 digit',
-            'phone_number.unique' => 'Nomor telepon sudah terdaftar',
-            'password.required' => 'Password harus diisi',
-            'password.min' => 'Password minimal 6 karakter',
-            'password.confirmed' => 'Konfirmasi password tidak cocok',
+            'name.required' => 'Name needs to be filled',
+            'name.min' => 'Name minimum 3 characters',
+            'name.max' => 'Name maksimal 255 characters',
+            'email.required' => 'Email needs to be filled',
+            'email.email' => 'Invalid email format',
+            'email.unique' => 'Email has been registered',
+            'phone_number.required' => 'Phone number needs to be filled',
+            'phone_number.min' => 'Phone number minimum 10 digits',
+            'phone_number.max' => 'Phone number maximum 15 digits',
+            'phone_number.unique' => 'Phone number has been registered',
+            'password.required' => 'Password needs to be filled',
+            'password.min' => 'Password minimum 6 characters',
+            'password.confirmed' => 'Confirmed password does not match',
         ]);
 
         if ($validator->fails()) {
@@ -109,11 +109,11 @@ class AuthController extends Controller
 
             return redirect()
                 ->route('dashboard')
-                ->with('success', 'Registrasi berhasil! Selamat datang ' . $user->name);
+                ->with('success', 'Registration successful! Welcome ' . $user->name);
         } catch (\Exception $e) {
             return redirect()
                 ->route('register')
-                ->withErrors(['error' => 'Terjadi kesalahan saat pendaftaran'])
+                ->withErrors(['error' => 'Something went wrong while registering'])
                 ->withInput($request->only('name', 'email', 'phone_number'));
         }
     }
@@ -129,6 +129,6 @@ class AuthController extends Controller
 
         return redirect()
             ->route('login')
-            ->with('success', 'Logout berhasil! Sampai jumpa lagi');
+            ->with('success', 'Logout successful! See you again');
     }
 }
