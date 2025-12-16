@@ -17,12 +17,11 @@
                     <li class="nav-item"><a href="{{ route('user.userVendor') }}" class="nav-link">Vendors</a></li>
                     <li class="nav-item"><a href="{{ route('user.userTransaction') }}" class="nav-link">History</a></li>
                     <li class="nav-item"><a href="{{ route('user.userAbout') }}" class="nav-link">About Us</a></li>
-                    <li class="nav-item"><a href="{{ route('auth.login') }}" class="nav-link">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    
+
     <main class="container my-4 flex-grow-1">
         @yield('content')
     </main>

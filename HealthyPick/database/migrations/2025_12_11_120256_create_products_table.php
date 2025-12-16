@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('Price');
             $table->string('Vendor_ID', 255);
             $table->integer('Stock');
+            $table->string('Image', 255);
             $table->timestamps();
             $table->foreign('Vendor_ID')->references('Vendor_ID')->on('vendors')->onDelete('cascade');
         });

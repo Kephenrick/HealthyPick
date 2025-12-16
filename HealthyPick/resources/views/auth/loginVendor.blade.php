@@ -7,7 +7,7 @@
             <div class="col-md-6">
                 <div class="card shadow">
                     <div class="card-header bg-secondary text-white text-center">
-                        <h3 class="mb-0">Login</h3>
+                        <h3 class="mb-0">Login As Vendor</h3>
                     </div>
                     <div class="card-body">
                         {{-- Error Message from Validation --}}
@@ -79,10 +79,7 @@
 
                         <hr>
 
-                        <p class="text-center mb-0">
-                            Belum punya akun?
-                            <a href="{{ route('register') }}" class="text-primary fw-bold">Daftar di sini</a>
-                        </p>
+
                     </div>
                 </div>
             </div>

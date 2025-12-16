@@ -10,7 +10,7 @@ class Product extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected $fillable = ['Product_ID', 'Name', 'Description', 'Price', 'Vendor_ID', 'Stock'];
+    protected $fillable = ['Product_ID', 'Name', 'Description', 'Price', 'Vendor_ID', 'Stock', 'Image'];
 
     public function vendor()
     {
