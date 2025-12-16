@@ -52,7 +52,7 @@
                             }
                         @endphp
 
-                        <form action="{{ route('login.submit') }}" method="POST">
+                        <form action="{{ route('vendor.login.submit') }}" method="POST">
                             @csrf
 
                             <div class="mb-3">

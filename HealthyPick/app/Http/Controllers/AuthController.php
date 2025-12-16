@@ -51,17 +51,21 @@ class AuthController extends Controller
      */
     public function vendorLogin(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email',
+
+        $validated = $request->validate([
+            'email' => 'required|email|exists:vendors,Email',
             'password' => 'required|min:6',
+        ], [
+            'email.exists' => 'Email vendor tidak terdaftar.',
+            'email.required' => 'Email harus diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'password.required' => 'Password harus diisi.',
+            'password.min' => 'Password minimal :min karakter.',
         ]);
 
-        $vendor = Vendor::where('Email', $request->email)->first();
-        if (!$vendor) {
-            return back()->withErrors(['email' => 'Email vendor tidak terdaftar.'])->withInput($request->except('password'));
-        }
+        $vendor = Vendor::where('Email', $validated['email'])->first();
 
-        if (!Hash::check($request->password, $vendor->Password)) {
+        if (!Hash::check($validated['password'], $vendor->Password)) {
             return back()->withErrors(['password' => 'Password salah.'])->withInput($request->except('password'));
         }
 
