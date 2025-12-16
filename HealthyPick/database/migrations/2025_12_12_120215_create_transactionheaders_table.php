@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('Transaction_ID', 255)->primary();
             $table->string('Customer_ID', 255);
             $table->string('Product_ID', 255);
+            $table->string('Status', 255);
             $table->integer('Quantity');
             $table->timestamps();
 

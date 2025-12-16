@@ -16,8 +16,18 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Log auth/session state for debugging
+        try {
+            $user = Auth::user();
+            $userId = $user ? ($user->Customer_ID ?? $user->id ?? null) : null;
+            $userEmail = $user ? ($user->Email ?? $user->email ?? null) : null;
+            \Log::info('RedirectIfAuthenticated - session_id: ' . session()->getId() . ' | Auth::check: ' . (Auth::check() ? 'true' : 'false') . ' | user_id: ' . ($userId ?? 'null') . ' | user_email: ' . ($userEmail ?? 'null'));
+        } catch (\Exception $e) {
+            \Log::error('RedirectIfAuthenticated log error: ' . $e->getMessage());
+        }
+
         if (Auth::check()) {
-            return redirect()->route('dashboard');
+            return redirect('/user');
         }
 
         return $next($request);

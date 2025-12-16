@@ -13,24 +13,14 @@
             <a href="/" class="navbar-brand">HealthyPick</a>
             <div>
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a href="{{ route('user.userProduct') }}" class="nav-link">{{ __('messages.products') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('user.userVendor') }}" class="nav-link">{{ __('messages.vendors') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('user.userTransaction') }}" class="nav-link">{{ __('messages.history') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('user.userAbout') }}" class="nav-link">{{ __('messages.about') }}</a></li>
-                    <li class="nav-item"><a href="{{ route('auth.login') }}" class="nav-link">{{ __('messages.login') }}</a></li>
+                    <li class="nav-item"><a href="{{ route('user.userProduct') }}" class="nav-link">Products</a></li>
+                    <li class="nav-item"><a href="{{ route('user.userVendor') }}" class="nav-link">Vendors</a></li>
+                    <li class="nav-item"><a href="{{ route('user.userTransaction') }}" class="nav-link">History</a></li>
+                    <li class="nav-item"><a href="{{ route('user.userAbout') }}" class="nav-link">About Us</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    
-    @if (session('success'))
-        <div class="container mt-3">
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div>
-    @endif
 
     <main class="container my-4 flex-grow-1">
         @yield('content')

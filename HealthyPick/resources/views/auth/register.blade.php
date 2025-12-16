@@ -10,11 +10,11 @@
                         <h3 class="mb-0">{{ __('messages.register_new_account') }}</h3>
                     </div>
                     <div class="card-body">
-                        {{-- Error Message --}}
+                        {{-- Error Message from Validation --}}
                         @if ($errors->any())
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>{{ __('messages.registration_failed') }}</strong>
-                                <ul class="mb-0">
+                                <strong><i class="bi bi-exclamation-circle"></i> Gagal Registrasi!</strong>
+                                <ul class="mb-0 mt-2">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
@@ -23,10 +23,20 @@
                             </div>
                         @endif
 
+                        {{-- Error Message from Exception --}}
+                        @if (session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong><i class="bi bi-exclamation-circle"></i> Error!</strong>
+                                <p class="mb-0 mt-2">{{ session('error') }}</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
                         {{-- Success Message --}}
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
+                                <strong><i class="bi bi-check-circle"></i> Sukses!</strong>
+                                <p class="mb-0 mt-2">{{ session('success') }}</p>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
