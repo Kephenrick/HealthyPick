@@ -1,22 +1,24 @@
 @extends('layout.dashboard')
 
-@section('title', 'Sales History')
-@section('title-page', 'Order Transaction')
+@section('title', __('messages.sales_history'))
+@section('title-page', __('messages.sales_history'))
 @section('content')
     <table class="table table-bordered">
-        <thead class="table-light">
+        <thead>
             <tr>
-                <th>i forgot</th>
-                <th>the</th>
-                <th>attributes</th>
+                <th>{{ __('messages.customer') }}</th>
+                <th>{{ __('messages.product') }}</th>
+                <th>{{ __('messages.stock') }}</th>
+                <th>{{ __('messages.status') }}</th>
             </tr>
         </thead>
         <tbody>
-            {{-- loop here again --}}
+            {{-- loop here --}}
             <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
+                <td>Customer name here</td>
+                <td>product here</td>
+                <td>123</td>
+                <td><span class="badge bg-success">{{ __('messages.active') }}</span></td>
             </tr>
         </tbody>
     </table>

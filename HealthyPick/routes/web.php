@@ -15,6 +15,24 @@ Route::get('/', function () {
     return redirect('/user');
 });
 
+Route::prefix('/user')->controller(UserController::class)->name('user.')->group(function () {
+    Route::get('/', 'home')->name('userHome');
+    Route::get('/product', 'product')->name('userProduct');
+    Route::get('/vendor', 'vendor')->name('userVendor');
+    Route::get('/payment', 'payment')->name('userPayment');
+    Route::post('/payment', 'submitPayment')->name('payment.submit');
+    Route::get('/transaction', 'transaction')->name('userTransaction');
+    Route::get('/aboutus', 'about')->name('userAbout');
+});
+
+Route::prefix('/vendor')->controller(VendorController::class)->name('vendor.')->group(function () {
+    Route::get('/', 'home')->name('vendorHome');
+    Route::get('/product', 'product')->name('vendorProduct');
+    Route::get('/transaction', 'transaction')->name('vendorTransaction');
+    Route::get('/add', 'add')->name('vendorAdd');
+});
+
+// Authentication Routes
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes (Guest Only)
@@ -83,6 +101,14 @@ Route::middleware('auth')->group(function () {
 
 // Vendor logout (clear vendor session)
 Route::post('/vendor/logout', [AuthController::class, 'vendorLogout'])->name('vendor.logout');
+
+// Language switcher route
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'id'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('lang.switch');
 
 /*
 |--------------------------------------------------------------------------

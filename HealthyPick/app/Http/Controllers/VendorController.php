@@ -17,4 +17,8 @@ class VendorController extends Controller
     public function transaction(){
         return view('vendor.vendorTransaction');
     }
+
+    public function add(){
+        return view('vendor.vendorAdd');
+    }
 }

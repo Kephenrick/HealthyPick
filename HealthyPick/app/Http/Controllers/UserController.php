@@ -19,7 +19,24 @@ class UserController extends Controller
     }
 
     public function payment(){
-        return view('user.userPayment');
+        // Normally you'd fetch the user's pending transaction (amount, id) here
+        $order = [
+            'id' => 'ORD-'.time(),
+            'amount' => 125000, // example amount in your currency
+        ];
+
+        return view('user.userPayment', compact('order'));
+    }
+
+    public function submitPayment(\Illuminate\Http\Request $request){
+        $request->validate([
+            'method' => 'required|string',
+        ]);
+
+        // Here you would integrate with payment gateway or record payment
+        // For now we simulate success
+
+        return redirect()->route('user.userTransaction')->with('success', __('messages.payment_success'));
     }
 
     public function transaction(){
