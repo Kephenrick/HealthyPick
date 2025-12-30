@@ -1,10 +1,9 @@
 @extends('layout.main')
 
-@section('title', 'Products')
+@section('title', __('messages.products'))
 @section('content')
     <div class="text-center mb-4">
-        <h1 class="mb-4">Menu</h1>
-        <p>lorem ipsum or smth</p>
+        <h1 class="mb-4">{{ __('messages.menu') }}</h1>
     </div>
 
     {{-- Product card format for loop --}}
