@@ -47,6 +47,7 @@ return [
     'purchase' => 'Purchase',
     'products_button' => 'Products',
     'stock' => 'Stock',
+    'image' => 'Image',
     'customer' => 'Customer',
 
     // About

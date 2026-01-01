@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow">
-                    <div class="card-header bg-primary text-white text-center">
+                    <div class="card-header bg-secondary text-white text-center">
                         <h3 class="mb-0">{{ __('messages.add_product') }}</h3>
                     </div>
                     <div class="card-body">
@@ -70,7 +70,20 @@
                                 @enderror
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100">{{ __('messages.login') }}</button>
+                            <div class="mb-3">
+                                    <label for="image" class="form-label">image upload</label>
+                                    <input 
+                                        type="file" 
+                                        class="form-control @error('image') is-invalid @enderror" 
+                                        id="image" 
+                                        placeholder="{{ __('messages.image') }}" 
+                                        required>
+                                    @error('image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                            <button type="submit" class="btn btn-secondary w-100">{{ __('messages.login') }}</button>
                         </form>
                     </div>
                 </div>

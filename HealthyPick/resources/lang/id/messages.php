@@ -47,6 +47,7 @@ return [
     'purchase' => 'Beli',
     'products_button' => 'Produk',
     'stock' => 'Stok',
+    'image' => 'Gambar',
     'customer' => 'Pelanggan',
 
     // About

@@ -7,7 +7,7 @@
         <a href="{{ route('vendor.vendorAdd') }}" class="btn btn-primary">{{ __('messages.add_product') }}</a>
     </div>
 
-    <table class="table table-striped">
+    <table class="table table-striped table-bordered table-dark">
         <thead>
             <tr>
                 <th>{{ __('messages.name') }}</th>
@@ -19,14 +19,17 @@
         </thead>
         <tbody>
             {{-- loop here --}}
-            <tr>
-                <td>name</td>
+            <tr class="align-middle">
+                <td>
+                    name
+                    <img src="https://picsum.photos/200/200" alt="" class="img-fluid d-block">
+                </td>
                 <td>description</td>
                 <td>money</td>
                 <td>123</td>
                 <td>
-                    <a href="" class="btn btn-sm btn-warning">{{ __('messages.edit') }}</a>
-                    <a href="" class="btn btn-sm btn-danger">{{ __('messages.delete') }}</a>
+                    <a href="" class="btn btn-sm btn-warning">edit</a>
+                    <a href="" class="btn btn-sm btn-danger">delete</a>
                 </td>
             </tr>
         </tbody>
