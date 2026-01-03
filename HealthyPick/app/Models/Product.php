@@ -6,19 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $table = 'products';
     protected $primaryKey = 'Product_ID';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected $fillable = ['Product_ID', 'Name', 'Description', 'Price', 'Vendor_ID', 'Stock', 'Image'];
+    protected $guarded = [];
 
     public function vendor()
     {
         return $this->belongsTo(Vendor::class, 'Vendor_ID', 'Vendor_ID');
     }
 
-    public function transactionHeaders()
+    public function transactionItems()
     {
-        return $this->hasMany(TransactionHeader::class, 'Product_ID', 'Product_ID');
+        return $this->hasMany(TransactionItem::class, 'Product_ID', 'Product_ID');
     }
 }
+

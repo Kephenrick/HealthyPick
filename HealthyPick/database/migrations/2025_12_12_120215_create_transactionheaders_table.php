@@ -14,14 +14,23 @@ return new class extends Migration
         Schema::create('transactionheaders', function (Blueprint $table) {
             $table->string('Transaction_ID', 255)->primary();
             $table->string('Customer_ID', 255);
-            $table->string('Product_ID', 255);
-            $table->string('Status', 255);
-            $table->integer('Quantity');
+            $table->string('Vendor_ID', 255);
+            $table->integer('total_price');
+            $table->enum('status', ['pending', 'paid', 'completed', 'cancelled']);
             $table->timestamps();
 
-            $table->foreign('Customer_ID')->references('Customer_ID')->on('customers')->onDelete('cascade');
-            $table->foreign('Product_ID')->references('Product_ID')->on('products')->onDelete('cascade');
+            $table->foreign('Customer_ID')
+                ->references('User_ID')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('Vendor_ID')
+                ->references('Vendor_ID')
+                ->on('vendors')
+                ->onDelete('cascade');
         });
+
+
     }
 
     /**

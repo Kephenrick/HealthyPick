@@ -15,7 +15,7 @@ return [
     'full_name' => 'Full Name',
     'email_address' => 'Email Address',
     'email_help' => "Your email won't be shared with anyone.",
-    'phone_number' => 'Phone Number',
+    'phone' => 'Phone Number',
     'password' => 'Password',
     'password_confirmation' => 'Confirm Password',
     'register_button' => 'Register',

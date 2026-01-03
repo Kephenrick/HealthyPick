@@ -15,7 +15,7 @@ return [
     'full_name' => 'Nama Lengkap',
     'email_address' => 'Alamat Email',
     'email_help' => 'Email Anda tidak akan dibagikan kepada siapapun.',
-    'phone_number' => 'Nomor Telepon',
+    'phone' => 'Nomor Telepon',
     'password' => 'Kata Sandi',
     'password_confirmation' => 'Konfirmasi Kata Sandi',
     'register_button' => 'Daftar',

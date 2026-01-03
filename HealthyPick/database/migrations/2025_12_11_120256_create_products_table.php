@@ -11,17 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
+
         Schema::create('products', function (Blueprint $table) {
             $table->string('Product_ID', 255)->primary();
-            $table->string('Name', 255);
-            $table->string('Description', 500);
-            $table->integer('Price');
             $table->string('Vendor_ID', 255);
-            $table->integer('Stock');
-            $table->string('Image', 255);
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->integer('price');
+            $table->integer('stock');
+            $table->string('image')->nullable();
             $table->timestamps();
-            $table->foreign('Vendor_ID')->references('Vendor_ID')->on('vendors')->onDelete('cascade');
+
+            $table->foreign('Vendor_ID')
+                ->references('Vendor_ID')
+                ->on('vendors')
+                ->onDelete('cascade');
         });
+
+
+
     }
 
     /**

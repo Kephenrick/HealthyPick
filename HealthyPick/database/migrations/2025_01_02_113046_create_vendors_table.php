@@ -13,14 +13,17 @@ return new class extends Migration
     {
         Schema::create('vendors', function (Blueprint $table) {
             $table->string('Vendor_ID', 255)->primary();
-            $table->string('Name', 255);
-            $table->string('Address', 255);
-            $table->string('Phone_Number', 255);
-            $table->string('Email', 255);
-            $table->string('Password');
-            $table->string('Image', 255);
+            $table->string('User_ID', 255);
+            $table->string('address');
+            $table->string('image')->nullable();
             $table->timestamps();
+
+            $table->foreign('User_ID')
+                ->references('User_ID')
+                ->on('users')
+                ->onDelete('cascade');
         });
+
     }
 
     /**

@@ -22,9 +22,9 @@
                     <a href="{{ route('vendor.vendorTransaction') }}" class="nav-link text-white">{{ __('messages.transaction') }}</a>
                 </li>
                 <li class="nav-item mt-3">
-                    <form method="POST" action="">
+                        <form method="POST" action="{{ route('vendor.logout') }}">
                         @csrf
-                        <button class="btn btn-outline-danger w-100">{{ __('messages.logout') }}</button>
+                        <button type="submit" class="btn btn-outline-danger w-100">{{ __('messages.logout') }}</button>
                     </form>
                 </li>
             </ul>

@@ -11,8 +11,14 @@
                         <h3 class="mb-0">{{ __('messages.add_product') }}</h3>
                     </div>
                     <div class="card-body">
-                        <form action="" method="POST">
-                            @csrf
+                        @if(isset($product))
+                            <form action="{{ route('vendor.vendorUpdate', $product->Product_ID) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                        @else
+                            <form action="{{ route('vendor.vendorAdd.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                        @endif
                             <div class="mb-3">
                                 <label for="name" class="form-label">{{ __('messages.name') }}</label>
                                 <input
@@ -20,7 +26,7 @@
                                     class="form-control @error('name') is-invalid @enderror"
                                     id="name"
                                     name="name"
-                                    value="{{ old('name') }}"
+                                    value="{{ old('name', isset($product) ? $product->Name : '') }}"
                                     placeholder="{{ __('messages.name') }}"
                                     required>
                                 @error('name')
@@ -30,13 +36,11 @@
 
                             <div class="mb-3">
                                 <label for="description" class="form-label">{{ __('messages.description') }}</label>
-                                <input
-                                    type="textarea"
+                                <textarea
                                     class="form-control @error('description') is-invalid @enderror"
                                     id="description"
                                     name="description"
-                                    placeholder="{{ __('messages.description') }}"
-                                    required>
+                                    placeholder="{{ __('messages.description') }}">{{ old('description', isset($product) ? $product->Description : '') }}</textarea>
                                 @error('description')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -49,6 +53,7 @@
                                     class="form-control @error('price') is-invalid @enderror"
                                     id="price"
                                     name="price"
+                                    value="{{ old('price', isset($product) ? $product->Price : '') }}"
                                     placeholder="{{ __('messages.price') }}"
                                     required>
                                 @error('price')
@@ -63,6 +68,7 @@
                                     class="form-control @error('stock') is-invalid @enderror"
                                     id="stock"
                                     name="stock"
+                                    value="{{ old('stock', isset($product) ? $product->Stock : 0) }}"
                                     placeholder="{{ __('messages.stock') }}"
                                     required>
                                 @error('stock')
@@ -70,7 +76,22 @@
                                 @enderror
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100">{{ __('messages.login') }}</button>
+                            <div class="mb-3">
+                                <label for="image" class="form-label">{{ __('messages.image') }}</label>
+                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
+                                @error('image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+
+                            @if(isset($product) && $product->Image)
+                                <div class="mb-3">
+                                    <label class="form-label">Current Image</label>
+                                    <div>
+                                        <img src="{{ asset('img/' . $product->Image) }}" alt="{{ $product->Name }}" style="max-width:150px;">
+                                    </div>
+                                </div>
+                            @endif
+
+                            <button type="submit" class="btn btn-primary w-100">{{ isset($product) ? __('messages.update_product') : __('messages.add_product') }}</button>
                         </form>
                     </div>
                 </div>

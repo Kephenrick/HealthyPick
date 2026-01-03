@@ -18,17 +18,27 @@
             </tr>
         </thead>
         <tbody>
-            {{-- loop here --}}
-            <tr>
-                <td>name</td>
-                <td>description</td>
-                <td>money</td>
-                <td>123</td>
-                <td>
-                    <a href="" class="btn btn-sm btn-warning">{{ __('messages.edit') }}</a>
-                    <a href="" class="btn btn-sm btn-danger">{{ __('messages.delete') }}</a>
-                </td>
-            </tr>
+            @forelse($products as $product)
+                <tr>
+                    <td>{{ $product->Name }}</td>
+                    <td>{{ $product->Description }}</td>
+                    <td>Rp {{ number_format($product->Price, 0, ',', '.') }}</td>
+                    <td>{{ $product->Stock }}</td>
+                    <td>
+                        <a href="{{ route('vendor.vendorEdit', $product->Product_ID) }}" class="btn btn-sm btn-warning">{{ __('messages.edit') }}</a>
+
+                        <form action="{{ route('vendor.vendorDelete', $product->Product_ID) }}" method="POST" style="display:inline-block" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-sm btn-danger">{{ __('messages.delete') }}</button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">Tidak ada produk.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 @endsection
