@@ -112,36 +112,38 @@ class AuthController extends Controller
             ->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
-    /**
-     * LOGIN - Simple and direct approach
-     */
+
     public function login(Request $request)
     {
         try {
-            // Step 1: Validasi input
+
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required|min:6',
             ]);
 
-            // Step 2: Cari user berdasarkan email
             $user = User::where('email', $request->email)->first();
 
-            // Step 3: Jika user tidak ada
             if (!$user) {
                 return back()
                     ->withErrors(['email' => 'Email tidak terdaftar.'])
                     ->withInput($request->except('password'));
             }
 
-            // Step 4: Cek password
+
+            if ($user->role === 'vendor') {
+                return back()
+                    ->withErrors(['email' => 'Vendor harus login melalui halaman vendor login.'])
+                    ->withInput($request->except('password'));
+            }
+
             if (!Hash::check($request->password, $user->password)) {
                 return back()
                     ->withErrors(['password' => 'Password salah.'])
                     ->withInput($request->except('password'));
             }
 
-            // Step 5: Login berhasil - gunakan Auth::guard('web')
+
             Auth::guard('web')->login($user, false); // false = jangan remember token
             $request->session()->regenerate();
 

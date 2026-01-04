@@ -61,12 +61,14 @@ return [
     'login_failed' => 'Login Gagal!',
     'dont_have_account' => 'Tidak punya akun?',
     'register_here' => 'Daftar di sini',
+    'login_as_vendor' => 'Login sebagai vendor',
     'testing_transaction' => 'testing transaction',
 
     // Vendor / Dashboard
     'total_products' => 'Total Produk',
     'manage_products' => 'Kelola Produk',
     'sales_history' => 'Riwayat Penjualan',
+    'edit_product' => 'Ubah Produk',
 
     // Dashboard
     'password_protected' => 'Akun Anda dilindungi dengan enkripsi password tingkat tinggi.',
@@ -77,6 +79,8 @@ return [
     'add_product' => 'Tambah Produk',
     'active' => 'Aktif',
     'edit' => 'Ubah',
+    'send' => 'Kirim',
+    'reject' => 'Tolak',
     'delete' => 'Hapus',
     'dashboard' => 'Dashboard',
     'welcome_user' => 'Selamat Datang, :name!',
@@ -108,4 +112,8 @@ return [
     'order_summary' => 'Ringkasan Pesanan',
     'order_id' => 'ID Pesanan',
     'amount' => 'Jumlah',
+    'completed' => 'Selesai',
+    'cancelled' => 'Dibatalkan',
+    'paid' => 'Dibayar',
+    'pending' => 'Menunggu',
 ];

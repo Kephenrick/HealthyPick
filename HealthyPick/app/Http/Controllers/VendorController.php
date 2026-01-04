@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Product;
 use App\Models\Vendor;
+use App\Models\TransactionHeader;
 use Illuminate\Support\Facades\Auth;
 
 class VendorController extends Controller
@@ -20,12 +21,20 @@ class VendorController extends Controller
     }
 
     public function home(){
-        return view('vendor.vendorHome');
+        $vendor = $this->getVendor();
+        if (!$vendor) {
+            return redirect()->route('vendor.login')->with('error', 'Data vendor tidak ditemukan.');
+        }
+
+        $totalProducts = Product::where('Vendor_ID', $vendor->Vendor_ID)->count();
+        $totalOrders = TransactionHeader::where('Vendor_ID', $vendor->Vendor_ID)->count();
+
+        return view('vendor.vendorHome', compact('totalProducts', 'totalOrders'));
     }
 
     public function product(){
         $vendor = $this->getVendor();
-        
+
         if (!$vendor) {
             return redirect()->route('vendor.login')->with('error', 'Data vendor tidak ditemukan.');
         }
@@ -35,7 +44,51 @@ class VendorController extends Controller
     }
 
     public function transaction(){
-        return view('vendor.vendorTransaction');
+        $vendor = $this->getVendor();
+        if (!$vendor) {
+            return redirect()->route('vendor.login')->with('error', 'Data vendor tidak ditemukan.');
+        }
+
+        $transactions = TransactionHeader::with(['customer', 'items.product'])
+            ->where('Vendor_ID', $vendor->Vendor_ID)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('vendor.vendorTransaction', compact('transactions'));
+    }
+
+    public function completeTransaction($id)
+    {
+        $vendor = $this->getVendor();
+        if (!$vendor) {
+            return redirect()->route('vendor.login')->with('error', 'Data vendor tidak ditemukan.');
+        }
+
+        $tx = TransactionHeader::where('Transaction_ID', $id)
+            ->where('Vendor_ID', $vendor->Vendor_ID)
+            ->firstOrFail();
+
+        $tx->status = 'completed';
+        $tx->save();
+
+        return redirect()->back()->with('success', 'Transaksi diubah menjadi Completed.');
+    }
+
+    public function cancelTransaction($id)
+    {
+        $vendor = $this->getVendor();
+        if (!$vendor) {
+            return redirect()->route('vendor.login')->with('error', 'Data vendor tidak ditemukan.');
+        }
+
+        $tx = TransactionHeader::where('Transaction_ID', $id)
+            ->where('Vendor_ID', $vendor->Vendor_ID)
+            ->firstOrFail();
+
+        $tx->status = 'cancelled';
+        $tx->save();
+
+        return redirect()->back()->with('success', 'Transaksi dibatalkan.');
     }
 
     public function add(){
@@ -45,7 +98,7 @@ class VendorController extends Controller
     public function edit($id)
     {
         $vendor = $this->getVendor();
-        
+
         if (!$vendor) {
             return redirect()->route('vendor.login')->with('error', 'Data vendor tidak ditemukan.');
         }
@@ -57,7 +110,7 @@ class VendorController extends Controller
     public function update(Request $request, $id)
     {
         $vendor = $this->getVendor();
-        
+
         if (!$vendor) {
             return redirect()->route('vendor.login')->with('error', 'Data vendor tidak ditemukan.');
         }
@@ -75,14 +128,21 @@ class VendorController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $imageName = Str::uuid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('img'), $imageName);
-            $product->Image = $imageName;
+
+            // Pastikan folder img ada
+            $imgPath = public_path('img');
+            if (!file_exists($imgPath)) {
+                mkdir($imgPath, 0755, true);
+            }
+
+            $file->move($imgPath, $imageName);
+            $product->image = $imageName;
         }
 
-        $product->Name = $request->input('name');
-        $product->Description = $request->input('description');
-        $product->Price = $request->input('price');
-        $product->Stock = $request->input('stock');
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->stock = $request->input('stock');
         $product->save();
 
         return redirect()->route('vendor.vendorProduct')->with('success', 'Produk berhasil diperbarui.');
@@ -91,7 +151,7 @@ class VendorController extends Controller
     public function destroy($id)
     {
         $vendor = $this->getVendor();
-        
+
         if (!$vendor) {
             return redirect()->route('vendor.login')->with('error', 'Data vendor tidak ditemukan.');
         }
@@ -113,26 +173,33 @@ class VendorController extends Controller
         ]);
 
         $vendor = $this->getVendor();
-        
+
         if (!$vendor) {
             return redirect()->route('vendor.login')->with('error', 'Data vendor tidak ditemukan.');
         }
 
-        $imageName = '';
+        $imageName = null;
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $imageName = Str::uuid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('img'), $imageName);
+
+            // Pastikan folder img ada
+            $imgPath = public_path('img');
+            if (!file_exists($imgPath)) {
+                mkdir($imgPath, 0755, true);
+            }
+
+            $file->move($imgPath, $imageName);
         }
 
         Product::create([
             'Product_ID' => (string) Str::uuid(),
-            'Name' => $request->input('name'),
-            'Description' => $request->input('description'),
-            'Price' => $request->input('price'),
             'Vendor_ID' => $vendor->Vendor_ID,
-            'Stock' => $request->input('stock'),
-            'Image' => $imageName,
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'stock' => $request->input('stock'),
+            'image' => $imageName,
         ]);
 
         return redirect()->route('vendor.vendorProduct')->with('success', 'Produk berhasil ditambahkan.');

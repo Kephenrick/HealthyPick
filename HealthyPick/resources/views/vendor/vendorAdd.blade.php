@@ -1,14 +1,14 @@
 @extends('layout.dashboard')
 
-@section('title', __('messages.add_product'))
-@section('title-page', 'Add Product')
+@section('title', isset($product) ? __('messages.edit_product') : __('messages.add_product'))
+@section('title-page', isset($product) ? __('messages.edit_product') : __('messages.add_product'))
 @section('content')
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow">
                     <div class="card-header bg-primary text-white text-center">
-                        <h3 class="mb-0">{{ __('messages.add_product') }}</h3>
+                        <h3 class="mb-0">{{ isset($product) ? __('messages.edit_product') : __('messages.add_product') }}</h3>
                     </div>
                     <div class="card-body">
                         @if(isset($product))
@@ -91,7 +91,7 @@
                                 </div>
                             @endif
 
-                            <button type="submit" class="btn btn-primary w-100">{{ isset($product) ? __('messages.update_product') : __('messages.add_product') }}</button>
+                            <button type="submit" class="btn btn-primary w-100">{{ isset($product) ? __('messages.edit') : __('messages.add_product') }}</button>
                         </form>
                     </div>
                 </div>

@@ -61,12 +61,14 @@ return [
     'login_failed' => 'Failed Login!',
     'dont_have_account' => "Don't have an account?",
     'register_here' => 'Register here',
+    'login_as_vendor' => 'Login as vendor',
     'testing_transaction' => 'testing transaction',
 
     // Vendor / Dashboard
     'total_products' => 'Total Products',
     'manage_products' => 'Manage Products',
     'sales_history' => 'Sales History',
+    'edit_product' => 'Edit Product',
 
     // Dashboard
     'password_protected' => 'Your account is protected with high-level password encryption.',
@@ -77,6 +79,8 @@ return [
     'add_product' => 'Add Product',
     'active' => 'Active',
     'edit' => 'Edit',
+    'send' => 'Send',
+    'reject' => 'Reject',
     'delete' => 'Delete',
     'dashboard' => 'Dashboard',
     'welcome_user' => 'Welcome, :name!',
@@ -109,4 +113,8 @@ return [
     'order_summary' => 'Order Summary',
     'order_id' => 'Order ID',
     'amount' => 'Amount',
+    'completed' => 'Completed',
+    'cancelled' => 'Cancelled',
+    'paid' => 'Paid',
+    'pending' => 'Pending',
 ];

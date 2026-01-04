@@ -6,23 +6,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ProductController;
 
-/*
-|--------------------------------------------------------------------------
-| Default Redirect
-|--------------------------------------------------------------------------
-*/
+
 Route::get('/', function () {
     return redirect('/user');
 });
 
-// Routes tanpa middleware (akan di-handle oleh route yang lebih spesifik di bawah)
 
-// Authentication Routes
-/*
-|--------------------------------------------------------------------------
-| Authentication Routes (Guest Only)
-|--------------------------------------------------------------------------
-*/
 Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
@@ -31,42 +20,45 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 });
 
-// Vendor login routes (guest only)
+
 Route::middleware('guest')->group(function () {
     Route::get('/login/vendor', [AuthController::class, 'showVendorLogin'])->name('vendor.login');
     Route::post('/login/vendor', [AuthController::class, 'vendorLogin'])->name('vendor.login.submit');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Debug Route (Remove after testing)
-|--------------------------------------------------------------------------
-*/
-Route::get('/test-login', [AuthController::class, 'testLogin']);
 
-/*
-|--------------------------------------------------------------------------
-| User Routes (Auth Required)
-|--------------------------------------------------------------------------
-*/
+// Route::get('/test-login', [AuthController::class, 'testLogin']);
+
+
+
+
+
+
 Route::prefix('user')
     ->middleware('auth')
-    ->controller(UserController::class)
     ->name('user.')
     ->group(function () {
-        Route::get('/', 'home')->name('userHome');
-        Route::get('/product', [ProductController::class, 'index'])->name('userProduct');
-        Route::get('/vendor', 'vendor')->name('userVendor');
-        Route::get('/payment', 'payment')->name('userPayment');
-        Route::get('/transaction', 'transaction')->name('userTransaction');
-        Route::get('/aboutus', 'about')->name('userAbout');
+        Route::controller(UserController::class)->group(function () {
+            Route::get('/', 'home')->name('userHome');
+            Route::get('/vendor', 'vendor')->name('userVendor');
+            Route::get('/payment', 'payment')->name('userPayment');
+            Route::post('/payment', 'submitPayment')->name('payment.submit');
+            Route::get('/transaction', 'transaction')->name('userTransaction');
+            Route::get('/aboutus', 'about')->name('userAbout');
+        });
+
+        Route::controller(ProductController::class)->group(function () {
+            Route::get('/product', 'index')->name('userProduct');
+            Route::post('/product/{productId}/purchase', 'purchase')->name('product.purchase');
+        });
     });
 
-/*
-|--------------------------------------------------------------------------
-| Vendor Routes (Auth Required - Role Vendor Only)
-|--------------------------------------------------------------------------
-*/
+
+
+
+
+
+
 Route::prefix('vendor')
     ->middleware([\App\Http\Middleware\VendorAuthenticate::class])
     ->controller(VendorController::class)
@@ -80,22 +72,28 @@ Route::prefix('vendor')
         Route::put('/{id}', 'update')->name('vendorUpdate');
         Route::delete('/{id}', 'destroy')->name('vendorDelete');
         Route::get('/transaction', 'transaction')->name('vendorTransaction');
+        Route::post('/transaction/{id}/complete', 'completeTransaction')->name('transaction.complete');
+        Route::post('/transaction/{id}/cancel', 'cancelTransaction')->name('transaction.cancel');
     });
 
-/*
-|--------------------------------------------------------------------------
-| Logout (Auth Required)
-|--------------------------------------------------------------------------
-*/
+
+
+
+
+
+
+
+
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-// Vendor logout (tidak perlu middleware karena saat logout user sudah tidak perlu authenticated)
+
+
 Route::post('/vendor/logout', [AuthController::class, 'vendorLogout'])
     ->name('vendor.logout');
 
-// Language switcher route
+
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'id'])) {
         session(['locale' => $locale]);
@@ -103,11 +101,10 @@ Route::get('lang/{locale}', function ($locale) {
     return redirect()->back();
 })->name('lang.switch');
 
-/*
-|--------------------------------------------------------------------------
-| Legacy Auth Routes (Backward Compatibility)
-|--------------------------------------------------------------------------
-*/
+
+
+
+
 Route::prefix('user/auth')
     ->controller(AuthController::class)
     ->name('auth.')

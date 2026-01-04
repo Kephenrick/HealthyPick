@@ -13,6 +13,32 @@ class Product extends Model
 
     protected $guarded = [];
 
+    // Accessor untuk kompatibilitas dengan view yang menggunakan uppercase
+    public function getNameAttribute()
+    {
+        return $this->attributes['name'];
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return $this->attributes['description'];
+    }
+
+    public function getPriceAttribute()
+    {
+        return $this->attributes['price'];
+    }
+
+    public function getStockAttribute()
+    {
+        return $this->attributes['stock'];
+    }
+
+    public function getImageAttribute()
+    {
+        return $this->attributes['image'];
+    }
+
     public function vendor()
     {
         return $this->belongsTo(Vendor::class, 'Vendor_ID', 'Vendor_ID');
