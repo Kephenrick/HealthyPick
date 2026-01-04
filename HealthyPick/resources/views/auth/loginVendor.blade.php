@@ -45,13 +45,6 @@
                             </div>
                         @endif
 
-                        {{-- DEBUG: Cek jika ada errors --}}
-                        @php
-                            if ($errors->any()) {
-                                \Log::info('Login errors:', $errors->messages());
-                            }
-                        @endphp
-
                         <form action="{{ route('vendor.login.submit') }}" method="POST">
                             @csrf
 

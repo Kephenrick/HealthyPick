@@ -36,7 +36,7 @@
                                     </tr>
                                     <tr>
                                         <td><strong>{{ __('messages.phone_label') }}</strong></td>
-                                        <td>{{ Auth::user()->phone_number ?? '-' }}</td>
+                                        <td>{{ Auth::user()->phone ?? '-' }}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>{{ __('messages.registered_label') }}</strong></td>

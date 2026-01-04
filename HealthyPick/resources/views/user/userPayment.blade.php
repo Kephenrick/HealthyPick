@@ -24,7 +24,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <h6>{{ __('messages.order_summary') }}</h6>
-                                <p><strong>{{ __('messages.amount') }}:</strong> {{ isset($order['amount']) ? number_format($order['amount'], 0, ',', '.') : '-' }}</p>
+                                @if(isset($order['product_name']))
+                                    <p><strong>Product:</strong> {{ $order['product_name'] }}</p>
+                                    <p><strong>Quantity:</strong> {{ $order['quantity'] }}</p>
+                                    <p><strong>Price per item:</strong> Rp {{ number_format($order['price'], 0, ',', '.') }}</p>
+                                @endif
+                                <p><strong>{{ __('messages.amount') }}:</strong> Rp {{ isset($order['amount']) ? number_format($order['amount'], 0, ',', '.') : '-' }}</p>
                                 <p><strong>{{ __('messages.order_id') }}:</strong> {{ $order['id'] ?? '-' }}</p>
                             </div>
 

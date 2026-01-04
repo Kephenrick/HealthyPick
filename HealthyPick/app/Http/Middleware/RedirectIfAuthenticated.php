@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
         // Log auth/session state for debugging
         try {
             $user = Auth::user();
-            $userId = $user ? ($user->Customer_ID ?? $user->id ?? null) : null;
+            $userId = $user ? ($user->User_ID ?? $user->id ?? null) : null;
             $userEmail = $user ? ($user->Email ?? $user->email ?? null) : null;
             \Log::info('RedirectIfAuthenticated - session_id: ' . session()->getId() . ' | Auth::check: ' . (Auth::check() ? 'true' : 'false') . ' | user_id: ' . ($userId ?? 'null') . ' | user_email: ' . ($userEmail ?? 'null'));
         } catch (\Exception $e) {

@@ -12,12 +12,20 @@
         <div class="container">
             <a href="/" class="navbar-brand">HealthyPick</a>
             <div>
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto d-flex flex-row align-items-center gap-3">
                     <li class="nav-item"><a href="{{ route('user.userProduct') }}" class="nav-link">Products</a></li>
                     <li class="nav-item"><a href="{{ route('user.userVendor') }}" class="nav-link">Vendors</a></li>
                     <li class="nav-item"><a href="{{ route('user.userPayment') }}" class="nav-link">Cart</a></li>
                     <li class="nav-item"><a href="{{ route('user.userTransaction') }}" class="nav-link">History</a></li>
                     <li class="nav-item"><a href="{{ route('user.userAbout') }}" class="nav-link">About Us</a></li>
+                    @auth
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-light btn-sm">{{ __('messages.logout') }}</button>
+                        </form>
+                    </li>
+                    @endauth
                 </ul>
             </div>
         </div>

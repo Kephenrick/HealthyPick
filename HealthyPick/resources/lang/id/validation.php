@@ -16,6 +16,6 @@ return [
         'name' => 'nama',
         'email' => 'email',
         'password' => 'kata sandi',
-        'phone_number' => 'nomor telepon',
+        'phone' => 'nomor telepon',
     ],
 ];

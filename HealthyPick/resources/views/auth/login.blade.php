@@ -83,6 +83,10 @@
                             {{ __('messages.dont_have_account') }}
                             <a href="{{ route('register') }}" class="text-primary fw-bold">{{ __('messages.register_here') }}</a>
                         </p>
+
+                        <p class="text-center mb-0">
+                            <a href="{{ route('vendor.login') }}" class="text-primary fw-bold">{{ __('messages.login_as_vendor') }}</a>
+                        </p>
                     </div>
                 </div>
             </div>

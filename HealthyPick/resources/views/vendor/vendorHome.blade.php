@@ -8,7 +8,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h6>{{ __('messages.total_products') }}</h6>
-                    <p class="fs-3 fw-bold">number here</p>
+                    <p class="fs-3 fw-bold">{{ isset($totalProducts) ? $totalProducts : 0 }}</p>
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h6>{{ __('messages.orders') }}</h6>
-                    <p class="fs-3 fw-bold">number here</p>
+                    <p class="fs-3 fw-bold">{{ isset($totalOrders) ? $totalOrders : 0 }}</p>
                 </div>
             </div>
         </div>
