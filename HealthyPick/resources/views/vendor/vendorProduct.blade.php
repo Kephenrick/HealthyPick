@@ -7,7 +7,7 @@
         <a href="{{ route('vendor.vendorAdd') }}" class="btn btn-primary">{{ __('messages.add_product') }}</a>
     </div>
 
-    <table class="table table-striped">
+    <table class="table table-striped table-bordered table-dark">
         <thead>
             <tr>
                 <th>{{ __('messages.name') }}</th>
