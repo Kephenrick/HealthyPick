@@ -55,8 +55,11 @@ class AuthController extends Controller
                     ->withInput($request->except('password'));
             }
 
-            // Cek password
-            if (!Hash::check($validated['password'], $user->password)) {
+            // Cek password - support plain text dan hash
+            $passwordMatch = Hash::check($validated['password'], $user->password) ||
+                           $validated['password'] === $user->password;
+
+            if (!$passwordMatch) {
                 return back()
                     ->withErrors(['password' => 'Password salah.'])
                     ->withInput($request->except('password'));
