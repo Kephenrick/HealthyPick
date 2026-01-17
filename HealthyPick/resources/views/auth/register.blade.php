@@ -1,4 +1,4 @@
-@extends('layout.main')
+@extends('layout.auth')
 
 @section('title', __('messages.register_button'))
 @section('content')
